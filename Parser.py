@@ -228,13 +228,13 @@ class MonetaryPolicyReportAnalyzer:
                                     in_figure = True
 
                     else:
-                        if re.match('表 \\d+ {2}', content):
+                        if re.match('表 \\d+ {1,2}', content):
                             match_table_ending = False
                         tables.append(ind)
                     continue
 
                 if in_figure:
-                    if re.match('图 \\d+ {2}', content):
+                    if re.match('图 \\d+ {1,2}', content):
                         in_figure = False
 
                         if not (in_table or in_figure or in_column):
@@ -660,8 +660,8 @@ class PDFComparer:
         for j in cache_ops_b:
             ops_b += j
 
-        result_a = self.decorate(ops_a, True).replace("。", "。<br>")
-        result_b = self.decorate(ops_b, False).replace("。", "。<br>")
+        result_a = self.decorate(ops_a, True).replace("。", "。<br><br>")
+        result_b = self.decorate(ops_b, False).replace("。", "。<br><br>")
 
         return result_a, result_b
 
@@ -850,7 +850,7 @@ class PDFComparer:
             str3 = str4
             str4 = cache
 
-        if str1 and str2 and str3 and str4:
+        if str1 and str2:
             f.write(" <tr>\n")
             f.write("  <th rowspan='%s'>%s</th>\n" % (rowspan1, str1))
             f.write("  <th rowspan='%s'>%s</th>\n" % (rowspan2, str2))
@@ -858,7 +858,7 @@ class PDFComparer:
             f.write("  <td>%s</td>\n" % str4)
             f.write(" </tr>\n")
 
-        elif str1 and not str2 and str3 and str4:
+        elif str1 and not str2:
             if header:
                 f.write(" <tr>\n")
                 f.write("  <th colspan='2'>%s</th>\n" % str1)
@@ -872,23 +872,18 @@ class PDFComparer:
                 f.write("  <td>%s</td>\n" % str4)
                 f.write(" </tr>\n")
 
-        elif not str1 and str2 and str3 and str4:
+        elif not str1 and str2:
             f.write(" <tr>\n")
             f.write("  <th rowspan='%s'>%s</th>\n" % (rowspan2, str2))
             f.write("  <td>%s</td>\n" % str3)
             f.write("  <td>%s</td>\n" % str4)
             f.write(" </tr>\n")
 
-        elif not str1 and not str2 and str3 and str4:
+        elif not str1 and not str2:
             f.write(" <tr>\n")
             f.write("  <td>%s</td>\n" % str3)
             f.write("  <td>%s</td>\n" % str4)
             f.write(" </tr>\n")
-
-        else:
-            print("str3: " + str3)
-            print("str4: " + str4)
-            raise ValueError("write_to_frame")
 
     def decorate(self, ops, source, delete_color="#FF69B4", insert_color="#32CD32"):
         string = ""
