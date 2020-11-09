@@ -1,3 +1,5 @@
+import sys
+
 from Parser import PDFComparer, PDFParser
 from CSS import get_css
 import os
@@ -28,9 +30,10 @@ def main():
     #         f.write(p.style.style_id + "\t" + p.text + "\n")
 
 
-def main_xiaolu():
-    f1 = "/Users/zhangwentao/Desktop/广深联合（深圳）股权投资基金合伙企业（有限合伙）证券经纪服务协议_ocr_分段.txt"
-    f2 = "/Users/zhangwentao/Desktop/证券经纪服务协议法审版本_ocr_分段.txt"
+def main_xiaolu(argv):
+    f1 = argv[1]
+    f2 = argv[2]
+    output = argv[3]
 
     agent = PDFComparer()
     ops_1, ops_2 = agent.edit_ops(open(f1).read().strip(), open(f2).read().strip())
@@ -41,7 +44,7 @@ def main_xiaolu():
     str_2 = str_2.replace("\n", "<br>")
     del ops_2
 
-    with open("/Users/zhangwentao/Desktop/分段.html", "w") as f:
+    with open(output, "w") as f:
         css = get_css()
         f.write(css + "\n")
         f.write("<table>\n")
@@ -51,4 +54,4 @@ def main_xiaolu():
 
 
 if __name__ == '__main__':
-    main()
+    main_xiaolu(sys.argv)
