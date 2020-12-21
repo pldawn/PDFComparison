@@ -1,4 +1,6 @@
 import re
+import jieba
+from jieba import posseg
 import Levenshtein as edit
 from collections import OrderedDict
 from pdfminer.pdfparser import PDFParser as mPDFParser, PDFDocument
@@ -6,6 +8,9 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.layout import LAParams
 from CSS import get_css
+
+
+jieba.load_userdict("userdict.txt")
 
 
 class PDFParser:
@@ -786,17 +791,48 @@ class PDFComparer:
 
             return ops_a, ops_b
 
+        mapper = iter("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+        split_a = jieba.lcut(text_a)
+        split_b = jieba.lcut(text_b)
+
+        word_set = set(split_a + split_b)
+        word_dict = {}
+        word_dict_rev = {}
+
+        for i in word_set:
+            if i not in word_dict:
+                j = mapper.__next__()
+                word_dict[i] = j
+                word_dict_rev[j] = i
+
+        text_a = ""
+        for tk in split_a:
+            text_a += word_dict[tk]
+
+        text_b = ""
+        for tk in split_b:
+            text_b += word_dict[tk]
+
         ops = edit.opcodes(text_a, text_b)
         for op in ops:
             op_name = op[0]
-            slice_a = text_a[op[1]: op[2]]
-            slice_b = text_b[op[3]: op[4]]
+            cache_a = text_a[op[1]: op[2]]
+            cache_b = text_b[op[3]: op[4]]
+
+            slice_a = ""
+            for tk in cache_a:
+                slice_a += word_dict_rev[tk]
+
+            slice_b = ""
+            for tk in cache_b:
+                slice_b += word_dict_rev[tk]
 
             if self.is_numerical(slice_a) and self.is_numerical(slice_b):
                 op_name = "equal"
 
-            if len(slice_a) == 1 or len(slice_b) == 1:
-                op_name = "equal"
+            # if len(slice_a) == 1 or len(slice_b) == 1:
+            #     op_name = "equal"
 
             if slice_a:
                 ops_a.append((op_name, slice_a))
