@@ -430,70 +430,70 @@ class PDFComparer:
 
             # 货币政策展望
             ## 流动性基调
-            path = [["c5"], ["c2"], ["p2s1"]]
-            str3, str4 = self.align_text([path])
+            path = [["c5"], ["c2"], ["ps1"]]
+            str3, str4 = self.align_text([path], ["稳健的货币政策"])
             self.write_to_frame(f, "货币政策展望", "流动性", str3, str4, 5)
 
             ## 风险防控
-            path = [["c5"], ["c2"], ["p8s1"]]
-            str3, str4 = self.align_text([path])
+            path = [["c5"], ["c2"], ["ps1"]]
+            str3, str4 = self.align_text([path], ["金融风险"])
             self.write_to_frame(f, "", "风险防控", str3, str4)
 
             ## 房地产
-            path = [["c5"], ["c2"], ["p4s-1"]]
-            str3, str4 = self.align_text([path])
+            path = [["c5"], ["c2"], ["ps-1"]]
+            str3, str4 = self.align_text([path], ["房子"])
             self.write_to_frame(f, "", "房地产", str3, str4)
 
             ## 信贷
-            path = [["c5"], ["c2"], ["p3s1"]]
-            str3, str4 = self.align_text([path])
+            path = [["c5"], ["c2"], ["ps1"]]
+            str3, str4 = self.align_text([path], ["再贷款", "再贴现", "信贷", "工具"])
             self.write_to_frame(f, "", "信贷", str3, str4)
 
             ## 汇率
-            path = [["c5"], ["c2"], ["p5s1"]]
-            str3, str4 = self.align_text([path])
+            path = [["c5"], ["c2"], ["ps1"]]
+            str3, str4 = self.align_text([path], ["汇率"])
             self.write_to_frame(f, "", "汇率", str3, str4)
 
             # 货币政策回顾
             ## 流动性
-            path = [["c1"], ["c1"], ["t"]]
-            str3, str4 = self.align_text([path])
+            path = [["c1"], ["c"], ["t"]]
+            str3, str4 = self.align_text([path], ["流动性"])
             self.write_to_frame(f, "货币政策回顾", "流动性", str3, str4, 8)
 
             ## 政策工具
-            path = [["c2"], ["c1", "c2", "c3", "c4"], ["t"]]
-            str3, str4 = self.align_text([path])
+            path = [["c2"], ["c"], ["t"]]
+            str3, str4 = self.align_text([path], ["操作", "便利", "货币信贷", "准备金率"])
             self.write_to_frame(f, "", "政策工具", str3, str4)
 
             ## 宏观审慎
-            path = [["c2"], ["c5"], ["t"]]
-            str3, str4 = self.align_text([path])
+            path = [["c2"], ["c"], ["t"]]
+            str3, str4 = self.align_text([path], ["宏观审慎"])
             self.write_to_frame(f, "", "宏观审慎", str3, str4)
 
             ## 信贷
-            path = [["c2"], ["c6"], ["t"]]
-            str3, str4 = self.align_text([path])
+            path = [["c2"], ["c"], ["t"]]
+            str3, str4 = self.align_text([path], ["信贷政策"])
             self.write_to_frame(f, "", "信贷", str3, str4)
 
             ## 汇率
-            path1 = [["c1"], ["c4"], ["t"]]
-            path2 = [["c2"], ["c9"], ["p1s1"]]
-            str3, str4 = self.align_text([path1, path2])
+            path1 = [["c1"], ["c"], ["t"]]
+            path2 = [["c2"], ["c"], ["p1s1"]]
+            str3, str4 = self.align_text([path1, path2], ["汇率"])
             self.write_to_frame(f, "", "汇率", str3, str4)
 
             ## 本外币存款
             path = [["c1"], ["c2"], ["t"]]
-            str3, str4 = self.align_text([path])
-            self.write_to_frame(f, "", "本外币存款", str3, str4)
+            str3, str4 = self.align_text([path], ["贷款", "存款"])
+            self.write_to_frame(f, "", "本外币存贷款", str3, str4)
 
             ## 社融
-            path = [["c1"], ["c3"], ["t"]]
-            str3, str4 = self.align_text([path])
+            path = [["c1"], ["c"], ["t"]]
+            str3, str4 = self.align_text([path], ["社会融资"])
             self.write_to_frame(f, "", "社融", str3, str4)
 
             ## 风险处置
-            path = [["c2"], ["c10"], ["t"]]
-            str3, str4 = self.align_text([path])
+            path = [["c2"], ["c"], ["t"]]
+            str3, str4 = self.align_text([path], ["金融风险"])
             self.write_to_frame(f, "", "风险处置", str3, str4)
 
             # 世界经济形势
@@ -598,27 +598,65 @@ class PDFComparer:
 
             f.write("</table>\n")
 
-    def align_text(self, path_list):
+    def align_text(self, path_list, keywords=None):
         result_a, result_b = [], []
 
         for path in path_list:
-            text_a_list = self.find_content(self.pdfs[0], path)
-            text_b_list = self.find_content(self.pdfs[1], path)
-            text = zip(text_a_list, text_b_list)
+            text_a_list = self.find_content(self.pdfs[0], path, keywords)
+            text_b_list = self.find_content(self.pdfs[1], path, keywords)
 
-            for text_a, text_b in text:
-                (ops_a, ops_b) = self.edit_ops(text_a.strip("。"), text_b.strip("。"))
-                result_a.append(self.decorate(ops_a, True))
-                result_b.append(self.decorate(ops_b, False))
+            if len(text_a_list) > 1:
+                text_a_list.sort(key=lambda x: -len(x))
 
-        result_a = "<br>".join(result_a)
-        result_b = "<br>".join(result_b)
+                for i in range(len(text_a_list)):
+                    i = len(text_a_list) - 1 - i
+
+                    for j in range(i):
+                        if text_a_list[i].strip("。") in text_a_list[j]:
+                            text_a_list.pop(i)
+                            break
+
+            if len(text_b_list) > 1:
+                text_b_list.sort(key=lambda x: -len(x))
+
+                for i in range(len(text_b_list)):
+                    i = len(text_b_list) - 1 - i
+
+                    for j in range(i):
+                        if text_b_list[i].strip("。") in text_b_list[j]:
+                            text_b_list.pop(i)
+                            break
+
+            paragraph_a = "。".join(text_a_list)
+            paragraph_b = "。".join(text_b_list)
+
+            res_a, res_b = self.align_paragraphs_core(paragraph_a, paragraph_b)
+
+            result_a.append(res_a)
+            result_b.append(res_b)
+
+            # text = zip(text_a_list, text_b_list)
+            #
+            # for text_a, text_b in text:
+            #     (ops_a, ops_b) = self.edit_ops(text_a.strip("。"), text_b.strip("。"))
+            #     result_a.append(self.decorate(ops_a, True))
+            #     result_b.append(self.decorate(ops_b, False))
+
+        result_a = "<br><br>".join(result_a)
+        result_a = result_a.replace("<br><br><br><br>", "<br><br>")
+        result_b = "<br><br>".join(result_b)
+        result_b = result_b.replace("<br><br><br><br>", "<br><br>")
 
         return result_a, result_b
 
     def align_paragraphs(self, path_list):
         paragraph_a = self.find_content(self.pdfs[0], path_list[0])[0]
         paragraph_b = self.find_content(self.pdfs[1], path_list[0])[0]
+        result_a, result_b = self.align_paragraphs_core(paragraph_a, paragraph_b)
+
+        return result_a, result_b
+
+    def align_paragraphs_core(self, paragraph_a, paragraph_b):
         sent_list_a = re.split("\\W", paragraph_a) if paragraph_a else []
         punc_list_a = re.split("\\w", paragraph_a)[1:-1] if paragraph_a else []
         punc_list_a = [i for i in punc_list_a if i]
@@ -660,8 +698,8 @@ class PDFComparer:
         for j in cache_ops_b:
             ops_b += j
 
-        result_a = self.decorate(ops_a, True).replace("。", "。<br><br>")
-        result_b = self.decorate(ops_b, False).replace("。", "。<br><br>")
+        result_a = self.decorate(ops_a, True).replace("。", "<br><br>")
+        result_b = self.decorate(ops_b, False).replace("。", "<br><br>")
 
         return result_a, result_b
 
@@ -767,7 +805,7 @@ class PDFComparer:
 
         return ops_a, ops_b
 
-    def find_content(self, tree, path):
+    def find_content(self, tree, path, keywords=None):
         # path = [[c1], [c2], [t], [p1s1s2, p2]]
         path = path.copy()
         result = [tree]
@@ -780,12 +818,16 @@ class PDFComparer:
 
                 for r in route:
                     if r.startswith("c"):
-                        index = int(r[1:]) - 1
-                        try:
-                            position = tree.children[index]
-                            cache.append(position)
-                        except IndexError:
-                            pass
+                        if r == "c":
+                            for c in tree.children:
+                                cache.append(c)
+                        else:
+                            index = int(r[1:]) - 1
+                            try:
+                                position = tree.children[index]
+                                cache.append(position)
+                            except IndexError:
+                                pass
                     elif r.startswith("t"):
                         try:
                             position = tree.title
@@ -805,13 +847,50 @@ class PDFComparer:
                     elif r.startswith("p"):
                         if "s" in r:
                             first_s = r.index("s")
-                            index = int(r[1:first_s]) - 1
-                            try:
-                                sents = r[first_s + 1:].split("s")
-                                paragraphs = re.split("[。？！]", tree.paragraphs[index])
-                                for s in sents:
+                            if r[:first_s] == "p":
+                                for paragraphs in tree.paragraphs:
                                     try:
-                                        position = paragraphs[int(s) - 1]
+                                        sents = r[first_s + 1:].split("s")
+                                        paragraphs = re.split("[。？！]", paragraphs)
+                                        for s in sents:
+                                            try:
+                                                position = paragraphs[int(s) - 1]
+                                                head = position[:3]
+                                                if "是" in head:
+                                                    start = position.index("是") + 1
+                                                else:
+                                                    start = 0
+                                                position = position[start:]
+                                                cache.append(position + "。")
+                                            except IndexError:
+                                                pass
+                                    except IndexError:
+                                        pass
+
+                            else:
+                                index = int(r[1:first_s]) - 1
+                                try:
+                                    sents = r[first_s + 1:].split("s")
+                                    paragraphs = re.split("[。？！]", tree.paragraphs[index])
+                                    for s in sents:
+                                        try:
+                                            position = paragraphs[int(s) - 1]
+                                            head = position[:3]
+                                            if "是" in head:
+                                                start = position.index("是") + 1
+                                            else:
+                                                start = 0
+                                            position = position[start:]
+                                            cache.append(position + "。")
+                                        except IndexError:
+                                            pass
+                                except IndexError:
+                                    pass
+
+                        else:
+                            if r == "p":
+                                for position in tree.paragraphs:
+                                    try:
                                         head = position[:3]
                                         if "是" in head:
                                             start = position.index("是") + 1
@@ -821,26 +900,38 @@ class PDFComparer:
                                         cache.append(position + "。")
                                     except IndexError:
                                         pass
-                            except IndexError:
-                                pass
-                        else:
-                            index = int(r[1:]) - 1
-                            try:
-                                position = tree.paragraphs[index]
-                                head = position[:3]
-                                if "是" in head:
-                                    start = position.index("是") + 1
-                                else:
-                                    start = 0
-                                position = position[start:]
-                                cache.append(position + "。")
-                            except IndexError:
-                                pass
+
+                            else:
+                                index = int(r[1:]) - 1
+                                try:
+                                    position = tree.paragraphs[index]
+                                    head = position[:3]
+                                    if "是" in head:
+                                        start = position.index("是") + 1
+                                    else:
+                                        start = 0
+                                    position = position[start:]
+                                    cache.append(position + "。")
+                                except IndexError:
+                                    pass
                     else:
                         raise ValueError("find_content")
 
             result = cache
             cache = []
+
+        if keywords:
+            cache = result
+            result = []
+
+            for res in cache:
+                score = 0
+                for kw in keywords:
+                    if kw in res:
+                        score += 1
+
+                if score / len(keywords) >= 0.1:
+                    result.append(res)
 
         return result
 

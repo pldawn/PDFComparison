@@ -6,23 +6,20 @@ import os
 
 
 def main():
-    pdf_input_path = "Resources/2020Q1.pdf"
-    agent = PDFParser()
-    parse_result = agent.parse(pdf_input_path)
-
-    with open("Result/result20Q1.txt", "w") as f:
-        for line in parse_result:
-            f.write(str(line[0]) + '\t' + '%04.1f' % line[1] + '\t' + line[2] + '\n')
-
-    document = agent.analyze("Monetary Policy Report", parse_result)
-    print(document)
+    # pdf_input_path = "Resources/2020Q1.pdf"
+    # agent = PDFParser()
+    # parse_result = agent.parse(pdf_input_path)
     #
-    # agent = PDFComparer()
-    # agent.compare_two_pdf("../Resources/2020Q1.pdf", "../Resources/2020Q2.pdf", "Monetary Policy Report")
-
-    # agent = PDFComparer()
-    # agent.compare_two_pdf("Resources/2019Q3.pdf", "Resources/2020Q2.pdf", "Monetary Policy Report")
-    # agent.to_html("Result/2019Q3_2020Q2.html")
+    # with open("Result/result20Q1.txt", "w") as f:
+    #     for line in parse_result:
+    #         f.write(str(line[0]) + '\t' + '%04.1f' % line[1] + '\t' + line[2] + '\n')
+    #
+    # document = agent.analyze("Monetary Policy Report", parse_result)
+    # print(document)
+    #
+    agent = PDFComparer()
+    agent.compare_two_pdf("Resources/2020Q2.pdf", "Resources/2020Q3.pdf", "Monetary Policy Report")
+    agent.to_html("Result/2020Q2_2020Q3.html")
     #
     # doc = Document("Resources/2019Q4.docx")
     # with open("Result/2019Q4.txt", "w") as f:
@@ -54,4 +51,4 @@ def main_xiaolu(argv):
 
 
 if __name__ == '__main__':
-    main_xiaolu(sys.argv)
+    main()
