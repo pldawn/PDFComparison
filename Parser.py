@@ -1,6 +1,5 @@
 import re
 import jieba
-from jieba import posseg
 import Levenshtein as edit
 from collections import OrderedDict
 from pdfminer.pdfparser import PDFParser as mPDFParser, PDFDocument
@@ -435,9 +434,9 @@ class PDFComparer:
 
             # 货币政策展望
             ## 流动性基调
-            path = [["c5"], ["c2"], ["ps1"]]
-            str3, str4 = self.align_text([path], ["稳健的货币政策"])
-            self.write_to_frame(f, "货币政策展望", "流动性", str3, str4, 5)
+            path = [["c5"], ["c2"], ["ps1", "p1s-1"]]
+            str3, str4 = self.align_text([path], ["稳健的货币政策", "大水漫灌", "货币政策稳定性"])
+            self.write_to_frame(f, "货币政策展望", "流动性", str3, str4, 6)
 
             ## 风险防控
             path = [["c5"], ["c2"], ["ps1"]]
@@ -449,10 +448,15 @@ class PDFComparer:
             str3, str4 = self.align_text([path], ["房子"])
             self.write_to_frame(f, "", "房地产", str3, str4)
 
-            ## 信贷
-            path = [["c5"], ["c2"], ["ps1"]]
-            str3, str4 = self.align_text([path], ["再贷款", "再贴现", "信贷", "工具"])
-            self.write_to_frame(f, "", "信贷", str3, str4)
+            ## 信贷总量
+            path = [["c5"], ["c2"], ["p3"]]
+            str3, str4 = self.align_text([path], ["再贷款", "再贴现", "信贷", "工具", "总闸门"])
+            self.write_to_frame(f, "", "信贷总量", str3, str4)
+
+            ## 信贷结构
+            path = [["c5"], ["c2"], ["p4"]]
+            str3, str4 = self.align_text([path], ["再贷款", "再贴现", "信贷", "工具", "总闸门"])
+            self.write_to_frame(f, "", "信贷结构", str3, str4)
 
             ## 汇率
             path = [["c5"], ["c2"], ["ps1"]]
