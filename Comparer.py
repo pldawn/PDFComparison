@@ -1031,7 +1031,7 @@ class MonetaryReportComparer:
 if __name__ == '__main__':
     # agent = MonetaryReportComparer()
     # my_result = agent.compare_text("新的一年继续落实和发挥好结构性货币政策工具的牵引带动作用。保持再贷款、再贴现政策稳定性，继续对涉农、小微企业、民营企业提供普惠性、持续性的资金支持。", "继续落实和发挥好结构性货币政策工具的牵引带动作用,运用好碳减排支持工具推动绿色低碳发展。保持再贷款、再贴现政策稳定性，实施好两项直达实体经济货币政策工具的延期工作，继续对涉农、小微企业、民营企业提供普惠性、持续性的资金支持。")
-    # # my_result = agent.compare_report("/Users/zhangwentao/PycharmProjects/PDFComparision/Resources/2021Q3.pdf", "/Users/zhangwentao/PycharmProjects/PDFComparision/Resources/2021Q2.pdf")
+    # # my_result = agent.compare_report("Resources/2021Q3.pdf", "Resources/2021Q2.pdf")
     # print(my_result)
 
     my_report1 = open("Resources/2021Q1Committee.txt").readlines()
