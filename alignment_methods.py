@@ -191,7 +191,7 @@ def _edit_ops(text_a, text_b):
     return ops_a, ops_b
 
 
-def _decorate(ops, source, delete_color="#32CD32", insert_color="#FF69B4"):
+def _decorate(ops, source, delete_color="#4169E1", insert_color="#FF69B4"):
     string = ""
     for op in ops:
         name = op[0]
