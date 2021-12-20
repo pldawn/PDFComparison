@@ -421,185 +421,185 @@ class MonetaryReportComparer:
 
         # title
         path = [["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("项目", "", new_ctt, old_ctt))
 
         # 总体基调
         path = [["c5"], ["c1"], ["p2"]]
-        new_ctt, old_ctt = self._align_continuous_text([path], False)
+        new_ctt, old_ctt = self._align_continuous_text([path], join=False)
         comparison_result.append(("总体基调", "", new_ctt, old_ctt))
 
         # 货币政策展望
         ## 流动性基调
         path = [["c5"], ["c2"], ["ps1", "p1s-1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["稳健的货币政策", "大水漫灌", "货币政策稳定性"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["稳健的货币政策", "大水漫灌", "货币政策稳定性"], join=False)
         comparison_result.append(("货币政策展望", "流动性", new_ctt, old_ctt))
 
         ## 风险防控
         path = [["c5"], ["c2"], ["ps1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["金融风险"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["金融风险"], join=False)
         comparison_result.append(("货币政策展望", "风险防控", new_ctt, old_ctt))
 
         ## 房地产
         path = [["c5"], ["c2"], ["ps-1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["房子"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["房子"], join=False)
         comparison_result.append(("货币政策展望", "房地产", new_ctt, old_ctt))
 
         ## 信贷总量
         path = [["c5"], ["c2"], ["p3"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["再贷款", "再贴现", "信贷", "工具", "总闸门"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["再贷款", "再贴现", "信贷", "工具", "总闸门"], join=False)
         comparison_result.append(("货币政策展望", "信贷总量", new_ctt, old_ctt))
 
         ## 信贷结构
         path = [["c5"], ["c2"], ["p4"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["再贷款", "再贴现", "信贷", "工具", "总闸门"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["再贷款", "再贴现", "信贷", "工具", "总闸门"], join=False)
         comparison_result.append(("货币政策展望", "信贷结构", new_ctt, old_ctt))
 
         ## 汇率
         path = [["c5"], ["c2"], ["ps1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["汇率"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["汇率"], join=False)
         comparison_result.append(("货币政策展望", "汇率", new_ctt, old_ctt))
 
         # 货币政策回顾
         ## 流动性
         path = [["c1"], ["c"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["流动性"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["流动性"], join=False)
         comparison_result.append(("货币政策回顾", "流动性", new_ctt, old_ctt))
 
         ## 政策工具
         path = [["c2"], ["c"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["操作", "便利", "货币信贷", "准备金率"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["操作", "便利", "货币信贷", "准备金率"], join=False)
         comparison_result.append(("货币政策回顾", "政策工具", new_ctt, old_ctt))
 
         ## 宏观审慎
         path = [["c2"], ["c"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["宏观审慎"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["宏观审慎"], join=False)
         comparison_result.append(("货币政策回顾", "宏观审慎", new_ctt, old_ctt))
 
         ## 信贷
         path = [["c2"], ["c"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["信贷政策"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["信贷政策"], join=False)
         comparison_result.append(("货币政策回顾", "信贷", new_ctt, old_ctt))
 
         ## 汇率
         path1 = [["c1"], ["c"], ["t"]]
         path2 = [["c2"], ["c"], ["p1s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path1, path2], ["汇率"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path1, path2], ["汇率"], join=False)
         comparison_result.append(("货币政策回顾", "汇率", new_ctt, old_ctt))
 
         ## 本外币存款
         path = [["c1"], ["c2"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["贷款", "存款"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["贷款", "存款"], join=False)
         comparison_result.append(("货币政策回顾", "本外币存款", new_ctt, old_ctt))
 
         ## 社融
         path = [["c1"], ["c"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["社会融资"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["社会融资"], join=False)
         comparison_result.append(("货币政策回顾", "社融", new_ctt, old_ctt))
 
         ## 风险处置
         path = [["c2"], ["c"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], ["金融风险"], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], ["金融风险"], join=False)
         comparison_result.append(("货币政策回顾", "风险处置", new_ctt, old_ctt))
 
         # 世界经济形势
         ## 经济增速
         path = [["c4"], ["c1"], ["c1"], ["p1s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("世界经济形势", "经济增速", new_ctt, old_ctt))
 
         # 国内经济形势
         ## 经济增速
         path1 = [["c4"], ["c2"], ["p1s1"]]
         path2 = [["c4"], ["c1"], ["p1s1", "p2s1", "p3s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path1, path2], False)
+        new_ctt, old_ctt = self._align_discrete_text([path1, path2], join=False)
         comparison_result.append(("国内经济形势", "经济增速", new_ctt, old_ctt))
 
         # 消费
         path = [["c4"], ["c2"], ["c1"], ["p1s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("国内经济形势", "消费", new_ctt, old_ctt))
 
         # 投资
         path = [["c4"], ["c2"], ["c1"], ["p2s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("国内经济形势", "投资", new_ctt, old_ctt))
 
         # 进出口
         path = [["c4"], ["c2"], ["c1"], ["p3s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("国内经济形势", "进出口", new_ctt, old_ctt))
 
         # 农业
         path = [["c4"], ["c2"], ["c2"], ["p2s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("国内经济形势", "农业", new_ctt, old_ctt))
 
         # 工业
         path = [["c4"], ["c2"], ["c2"], ["p3s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("国内经济形势", "工业", new_ctt, old_ctt))
 
         # 服务业
         path = [["c4"], ["c2"], ["c2"], ["p4s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("国内经济形势", "服务业", new_ctt, old_ctt))
 
         # 财政收支
         path = [["c4"], ["c2"], ["c4"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("国内经济形势", "财政与就业", new_ctt, old_ctt))
 
         # 价格形势
         ## 总体趋势
         path = [["c5"], ["c1"], ["p4s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("价格形势", "总体趋势", new_ctt, old_ctt))
 
         ## CPI
         path = [["c4"], ["c2"], ["c3"], ["p1s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("价格形势", "CPI", new_ctt, old_ctt))
 
         ## PPI
         path = [["c4"], ["c2"], ["c3"], ["p2s1"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("价格形势", "PPI", new_ctt, old_ctt))
 
         # 金融市场运行回顾
         ## 货币市场
         path = [["c3"], ["c1"], ["c1"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("金融市场运行回顾", "货币市场", new_ctt, old_ctt))
 
         ## 债券市场
         path = [["c3"], ["c1"], ["c2"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("金融市场运行回顾", "债券市场", new_ctt, old_ctt))
 
         ## 票据市场
         path = [["c3"], ["c1"], ["c3"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("金融市场运行回顾", "票据市场", new_ctt, old_ctt))
 
         ## 股票市场
         path = [["c3"], ["c1"], ["c4"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("金融市场运行回顾", "股票市场", new_ctt, old_ctt))
 
         ## 保险市场
         path = [["c3"], ["c1"], ["c5"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("金融市场运行回顾", "保险市场", new_ctt, old_ctt))
 
         ## 外汇市场
         path = [["c3"], ["c1"], ["c6"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("金融市场运行回顾", "外汇市场", new_ctt, old_ctt))
 
         ## 黄金市场
         path = [["c3"], ["c1"], ["c7"], ["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], False)
+        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
         comparison_result.append(("金融市场运行回顾", "黄金市场", new_ctt, old_ctt))
 
         return comparison_result
@@ -827,23 +827,21 @@ class MonetaryReportComparer:
                             text_b_list.pop(i)
                             break
 
-            paragraph_a = "。".join(text_a_list)
-            paragraph_b = "。".join(text_b_list)
+            paragraph_a = "".join(text_a_list)
+            paragraph_b = "".join(text_b_list)
 
-            res_a, res_b = align_text(paragraph_a, paragraph_b)
+            res_a, res_b = align_text(paragraph_a, paragraph_b, join)
 
-            new_result.append(res_a)
-            old_result.append(res_b)
+            if join:
+                new_result.append(res_a)
+                old_result.append(res_b)
+            else:
+                new_result += res_a
+                old_result += res_b
 
         if join:
-            new_result = "<br><br>".join(new_result)
-            new_result = new_result.replace("<br><br><br><br>", "<br><br>")
-            old_result = "<br><br>".join(old_result)
-            old_result = old_result.replace("<br><br><br><br>", "<br><br>")
-
-        else:
-            new_result = [ctt.strip("<br><br>") for ctt in new_result]
-            old_result = [ctt.strip("<br><br>") for ctt in old_result]
+            new_result = "<br><br>".join([i.strip("<br><br>") for i in new_result])
+            old_result = "<br><br>".join([i.strip("<br><br>") for i in old_result])
 
         return new_result, old_result
 
@@ -1029,13 +1027,13 @@ class MonetaryReportComparer:
 
 
 if __name__ == '__main__':
-    # agent = MonetaryReportComparer()
+    agent = MonetaryReportComparer()
     # my_result = agent.compare_text("新的一年继续落实和发挥好结构性货币政策工具的牵引带动作用。保持再贷款、再贴现政策稳定性，继续对涉农、小微企业、民营企业提供普惠性、持续性的资金支持。", "继续落实和发挥好结构性货币政策工具的牵引带动作用,运用好碳减排支持工具推动绿色低碳发展。保持再贷款、再贴现政策稳定性，实施好两项直达实体经济货币政策工具的延期工作，继续对涉农、小微企业、民营企业提供普惠性、持续性的资金支持。")
-    # # my_result = agent.compare_report("Resources/2021Q3.pdf", "Resources/2021Q2.pdf")
-    # print(my_result)
-
-    my_report1 = open("Resources/2021Q1Committee.txt").readlines()
-    my_report2 = open("Resources/2020Q1Committee.txt").readlines()
-    agent = MonetaryCommitteeComparer()
-    my_result = agent.compare_report(my_report1, my_report2, **{"to_html": True})
+    my_result = agent.compare_report("Resources/2021Q3.pdf", "Resources/2021Q2.pdf")
     print(my_result)
+
+    # my_report1 = open("Resources/2021Q1Committee.txt").readlines()
+    # my_report2 = open("Resources/2020Q1Committee.txt").readlines()
+    # agent = MonetaryCommitteeComparer()
+    # my_result = agent.compare_report(my_report1, my_report2, **{"to_html": True})
+    # print(my_result)
