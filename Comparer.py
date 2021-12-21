@@ -238,6 +238,9 @@ class MonetaryCommitteeComparer:
             f.write(" </tr>\n")
 
     def _load_report(self, new_report, old_report, **kwargs):
+        self.tagging_result = []
+        self.project_name = []
+
         new_split_report = self._preprocess(new_report)
         new_tagging_result = self._tagging(new_split_report)
         self.tagging_result.append(new_tagging_result)
