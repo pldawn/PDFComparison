@@ -389,7 +389,7 @@ class MonetaryReportComparer:
         对比货币政策执行报告
         :param new_report: str, 新报告的路径
         :param old_report: str, 旧报告的路径
-        :param kwargs: 占位参数，目前包含两个可用参数；
+        :param kwargs: 占位参数，目前包含2个可用参数；
                         to_html：bool, True时，输出html文件路径，反之输出对比结果列表；
                         output_path：str, 当to_html=True时，指定文件保存路径，默认为"./result.html"
         :return: Union[str, List[Tuple[str, str, str, str]]],
