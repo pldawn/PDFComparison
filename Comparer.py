@@ -24,7 +24,7 @@ class ReportComparer:
 
     def compare_report(self, new_report, old_report, **kwargs):
         """
-        报告对比，根据rule自动调用不同的对比模块，传入参数根据rule有所变化，具体参加各实际调用接口
+        报告对比，根据rule自动调用不同的对比模块，传入参数根据rule有所变化，具体参考各实际调用接口
         :param new_report: str，新报告
         :param old_report: str，旧报告
         :param kwargs: dict，额外参数
@@ -52,8 +52,11 @@ class MonetaryCommitteeComparer:
         对比货币政策委员会例会记录
         :param new_report: List[str]，新报告，按段分割
         :param old_report: List[str]，旧报告，按段分割
-        :param kwargs: dict，占位参数，目前包含两个可用参数；to_html：bool, True时，输出html文件路径，反之输出对比结果列表；
-                        output_path：str, 当to_html=True时，指定文件保存路径，默认为"./result.html"
+        :param kwargs: dict，占位参数，目前包含4个可用参数；
+                        to_html：bool, True时，输出html文件路径，反之输出对比结果列表；
+                        output_path：str, 当to_html=True时，指定文件保存路径，默认为"./result.html"；
+                        new_report_name：str，新报告的名称，如不提供则从报告第一段抽取；
+                        old_report_name：str，旧报告的名称，如不提供则从报告第一段抽取；
         :return: List[Tuple[str, List[str], List[str]]]，对比结果每个Tuple是一行对比结果，Tuple中的str
                   是该行的行名，List[str]是新旧报告在该行的对比结果
         """
@@ -245,14 +248,20 @@ class MonetaryCommitteeComparer:
         new_tagging_result = self._tagging(new_split_report)
         self.tagging_result.append(new_tagging_result)
 
-        new_name = re.match("中国人民银行货币政策委员会\\d{4}年第.季度", new_split_report[0][0]).group()
+        if kwargs.get("new_report_name", False):
+            new_name = kwargs.get("new_report_name")
+        else:
+            new_name = re.match("中国人民银行货币政策委员会\\d{4}年第.季度", new_split_report[0][0]).group()
         self.project_name.append(new_name)
 
         old_split_report = self._preprocess(old_report)
         old_tagging_result = self._tagging(old_split_report)
         self.tagging_result.append(old_tagging_result)
 
-        old_name = re.match("中国人民银行货币政策委员会\\d{4}年第.季度", old_split_report[0][0]).group()
+        if kwargs.get("old_report_name", False):
+            old_name = kwargs.get("old_report_name")
+        else:
+            old_name = re.match("中国人民银行货币政策委员会\\d{4}年第.季度", old_split_report[0][0]).group()
         self.project_name.append(old_name)
 
     def _preprocess(self, report):
@@ -380,7 +389,8 @@ class MonetaryReportComparer:
         对比货币政策执行报告
         :param new_report: str, 新报告的路径
         :param old_report: str, 旧报告的路径
-        :param kwargs: 占位参数，目前包含两个可用参数；to_html：bool, True时，输出html文件路径，反之输出对比结果列表；
+        :param kwargs: 占位参数，目前包含两个可用参数；
+                        to_html：bool, True时，输出html文件路径，反之输出对比结果列表；
                         output_path：str, 当to_html=True时，指定文件保存路径，默认为"./result.html"
         :return: Union[str, List[Tuple[str, str, str, str]]],
                  当to_html=True时，输出html文件路径；反之，输出对比结果列表
