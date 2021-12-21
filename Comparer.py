@@ -60,7 +60,7 @@ class MonetaryCommitteeComparer:
         self._load_report(new_report, old_report, **kwargs)
 
         if not kwargs.get("to_html", False):
-            comparison_result = []
+            comparison_result = [("项目", self.project_name[0], self.project_name[1])]
 
             # 经济形势
             new_text = self.tagging_result[0]["经济形势"]
