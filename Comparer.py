@@ -434,7 +434,8 @@ class MonetaryReportComparer:
 
         # title
         path = [["t"]]
-        new_ctt, old_ctt = self._align_discrete_text([path], join=False)
+        new_ctt = self._find_content(self.report[0], path)[0].replace(" ", "").strip("。")
+        old_ctt = self._find_content(self.report[1], path)[0].replace(" ", "").strip("。")
         comparison_result.append(("项目", "", new_ctt, old_ctt))
 
         # 总体基调
@@ -628,7 +629,8 @@ class MonetaryReportComparer:
 
             # title
             path = [["t"]]
-            new_ctt, old_ctt = self._align_discrete_text([path])
+            new_ctt = self._find_content(self.report[0], path)[0].replace(" ", "").strip("。")
+            old_ctt = self._find_content(self.report[1], path)[0].replace(" ", "").strip("。")
             self._write_to_frame(f, "项目", "", new_ctt, old_ctt, header=True)
 
             # 总体基调
@@ -1043,13 +1045,13 @@ class MonetaryReportComparer:
 
 
 if __name__ == '__main__':
-    # agent = MonetaryReportComparer()
-    # # my_result = agent.compare_text("新的一年继续落实和发挥好结构性货币政策工具的牵引带动作用。保持再贷款、再贴现政策稳定性，继续对涉农、小微企业、民营企业提供普惠性、持续性的资金支持。", "继续落实和发挥好结构性货币政策工具的牵引带动作用,运用好碳减排支持工具推动绿色低碳发展。保持再贷款、再贴现政策稳定性，实施好两项直达实体经济货币政策工具的延期工作，继续对涉农、小微企业、民营企业提供普惠性、持续性的资金支持。")
-    # my_result = agent.compare_report("Resources/2021Q3.pdf", "Resources/2021Q2.pdf", to_html=True, output_path="Result/2021Q2_2021Q3.html")
-    # print(my_result)
-
-    my_report1 = open("Resources/2021Q1Committee.txt").readlines()
-    my_report2 = open("Resources/2020Q1Committee.txt").readlines()
-    agent = MonetaryCommitteeComparer()
-    my_result = agent.compare_report(my_report1, my_report2, **{"to_html": True})
+    agent = MonetaryReportComparer()
+    # my_result = agent.compare_text("新的一年继续落实和发挥好结构性货币政策工具的牵引带动作用。保持再贷款、再贴现政策稳定性，继续对涉农、小微企业、民营企业提供普惠性、持续性的资金支持。", "继续落实和发挥好结构性货币政策工具的牵引带动作用,运用好碳减排支持工具推动绿色低碳发展。保持再贷款、再贴现政策稳定性，实施好两项直达实体经济货币政策工具的延期工作，继续对涉农、小微企业、民营企业提供普惠性、持续性的资金支持。")
+    my_result = agent.compare_report("Resources/2021Q3.pdf", "Resources/2021Q2.pdf", to_html=True, output_path="Result/2021Q2_2021Q3.html")
     print(my_result)
+
+    # my_report1 = open("Resources/2021Q1Committee.txt").readlines()
+    # my_report2 = open("Resources/2020Q1Committee.txt").readlines()
+    # agent = MonetaryCommitteeComparer()
+    # my_result = agent.compare_report(my_report1, my_report2, **{"to_html": True})
+    # print(my_result)
