@@ -48,12 +48,15 @@ def align_text(paragraph_a, paragraph_b, join=True):
     for j in cache_ops_b:
         ops_b += j
 
+    new_result = _decorate(ops_a, False).strip("。")
+    old_result = _decorate(ops_b, True).strip("。")
+
     if join:
-        new_result = _decorate(ops_a, False).replace("。", "<br><br>")
-        old_result = _decorate(ops_b, True).replace("。", "<br><br>")
+        new_result = new_result.replace("。", "<br><br>")
+        old_result = old_result.replace("。", "<br><br>")
     else:
-        new_result = _decorate(ops_a, False).split("。")
-        old_result = _decorate(ops_b, True).split("。")
+        new_result = new_result.split("。")
+        old_result = old_result.split("。")
 
     return new_result, old_result
 
