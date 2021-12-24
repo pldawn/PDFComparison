@@ -319,9 +319,11 @@ class MonetaryCommitteeComparer:
         tagging_result['货币政策'] = []
 
         for sentence in paragraph:
-            if '货币政策' in sentence and '企业' not in sentence:
+            if ('货币政策' in sentence or '流动性' in sentence) and '企业' not in sentence:
                 tagging_result['货币政策'].append(sentence)
-                break
+
+                if len(tagging_result["货币政策"]) >= 2:
+                    break
 
         self._remove_sentence(paragraph, tagging_result['货币政策'])
 
