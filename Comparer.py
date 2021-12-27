@@ -113,6 +113,12 @@ class MonetaryCommitteeComparer:
             comparison = self.compare_text("。".join(new_text), "。".join(old_text))
             comparison_result.append(("双向开放", comparison[0], comparison[1]))
 
+            # 房地产
+            new_text = self.tagging_result[0]["房地产"]
+            old_text = self.tagging_result[1]["房地产"]
+            comparison = self.compare_text("。".join(new_text), "。".join(old_text))
+            comparison_result.append(("房地产", comparison[0], comparison[1]))
+
             # 总体要求
             new_text = self.tagging_result[0]["总体要求"]
             old_text = self.tagging_result[1]["总体要求"]
@@ -226,6 +232,16 @@ class MonetaryCommitteeComparer:
             comparison = self.compare_text("。".join(new_text), "。".join(old_text), join=True)
             f.write(" <tr>\n")
             f.write("  <th>%s</th>\n" % "双向开放")
+            f.write("  <td>%s</td>\n" % comparison[0])
+            f.write("  <td>%s</td>\n" % comparison[1])
+            f.write(" </tr>\n")
+
+            # 房地产
+            new_text = self.tagging_result[0]["房地产"]
+            old_text = self.tagging_result[1]["房地产"]
+            comparison = self.compare_text("。".join(new_text), "。".join(old_text), join=True)
+            f.write(" <tr>\n")
+            f.write("  <th>%s</th>\n" % "房地产")
             f.write("  <td>%s</td>\n" % comparison[0])
             f.write("  <td>%s</td>\n" % comparison[1])
             f.write(" </tr>\n")
@@ -372,6 +388,13 @@ class MonetaryCommitteeComparer:
                 tagging_result['双向开放'].append(sentence)
 
         self._remove_sentence(paragraph, tagging_result['双向开放'])
+
+        # 房地产
+        tagging_result["房地产"] = []
+
+        for sentence in paragraph:
+            if "房地产" in sentence or "住房" in sentence:
+                tagging_result["房地产"].append(sentence)
 
         # 总体要求
         tagging_result['总体要求'] = []
@@ -1052,8 +1075,8 @@ if __name__ == '__main__':
     # my_result = agent.compare_report("Resources/2021Q3.pdf", "Resources/2021Q2.pdf", to_html=True, output_path="Result/2021Q2_2021Q3.html")
     # print(my_result)
 
-    my_report1 = open("Resources/2021Q1Committee.txt").readlines()
-    my_report2 = open("Resources/2020Q1Committee.txt").readlines()
+    my_report1 = open("Resources/2021Q4Committee.txt").readlines()
+    my_report2 = open("Resources/2021Q3Committee.txt").readlines()
     agent = MonetaryCommitteeComparer()
-    my_result = agent.compare_report(my_report1, my_report2, **{"to_html": True})
+    my_result = agent.compare_report(my_report1, my_report2, to_html=True, output_path="Result/Committee2021Q4_2021Q3.html")
     print(my_result)
