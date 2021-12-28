@@ -296,11 +296,20 @@ class MonetaryCommitteeComparer:
                         break
 
     def _tagging(self, split_report):
-        tagging_result = {}
+        tagging_result = {
+            "经济形势": [],
+            "政策基调": [],
+            "货币政策": [],
+            "结构性政策工具": [],
+            "汇率": [],
+            "利率": [],
+            "金融支持实体": [],
+            "双向开放": [],
+            "房地产": [],
+            "总体要求": [],
+        }
 
         # 经济形势
-        tagging_result['经济形势'] = []
-
         paragraph = split_report[1]
         if '会议认为' in paragraph[1]:
             if '经济' in paragraph[1] and '增长' in paragraph[1]:
@@ -316,8 +325,6 @@ class MonetaryCommitteeComparer:
                 tagging_result['经济形势'].append(paragraph[0].replace('会议指出，', ''))
 
         # 政策基调
-        tagging_result['政策基调'] = []
-
         if '会议指出，要' in paragraph[0]:
             tagging_result['政策基调'].append(paragraph[0][paragraph[0].index('，要'):].replace('，要', '要'))
         else:
@@ -332,11 +339,14 @@ class MonetaryCommitteeComparer:
         self._remove_sentence(paragraph, tagging_result['政策基调'])
 
         # 货币政策
-        tagging_result['货币政策'] = []
+        for ind in range(len(paragraph)):
+            sentence = paragraph[ind]
 
-        for sentence in paragraph:
             if ('货币政策' in sentence or '流动性' in sentence) and '企业' not in sentence:
                 tagging_result['货币政策'].append(sentence)
+
+                if "服务实体经济" in paragraph[ind+1]:
+                    tagging_result["货币政策"].append(paragraph[ind+1])
 
                 if len(tagging_result["货币政策"]) >= 2:
                     break
@@ -344,8 +354,6 @@ class MonetaryCommitteeComparer:
         self._remove_sentence(paragraph, tagging_result['货币政策'])
 
         # 结构性政策工具
-        tagging_result['结构性政策工具'] = []
-
         for sentence in paragraph:
             if '政策工具' in sentence:
                 tagging_result['结构性政策工具'].append(sentence)
@@ -353,8 +361,6 @@ class MonetaryCommitteeComparer:
         self._remove_sentence(paragraph, tagging_result['结构性政策工具'])
 
         # 汇率
-        tagging_result['汇率'] = []
-
         for sentence in paragraph:
             if '汇率' in sentence:
                 tagging_result['汇率'].append(sentence)
@@ -362,9 +368,6 @@ class MonetaryCommitteeComparer:
         self._remove_sentence(paragraph, tagging_result['汇率'])
 
         # 利率
-        tagging_result['利率'] = []
-        tagging_result['金融支持实体'] = []
-
         for sentence in paragraph:
             if '利率' in sentence and '实体' not in sentence:
                 tagging_result['利率'].append(sentence)
@@ -381,8 +384,6 @@ class MonetaryCommitteeComparer:
                 tagging_result['金融支持实体'].append(sentence)
 
         # 双向开放
-        tagging_result['双向开放'] = []
-
         for sentence in paragraph:
             if '双向开放' in sentence or '对外开放' in sentence:
                 tagging_result['双向开放'].append(sentence)
@@ -390,15 +391,11 @@ class MonetaryCommitteeComparer:
         self._remove_sentence(paragraph, tagging_result['双向开放'])
 
         # 房地产
-        tagging_result["房地产"] = []
-
         for sentence in paragraph:
             if "房地产" in sentence or "住房" in sentence:
                 tagging_result["房地产"].append(sentence)
 
         # 总体要求
-        tagging_result['总体要求'] = []
-
         for sentence in split_report[3]:
             tagging_result['总体要求'].append(sentence.replace('会议强调，', ''))
 
