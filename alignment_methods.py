@@ -58,6 +58,9 @@ def align_text(paragraph_a, paragraph_b, join=True):
         new_result = new_result.split("。")
         old_result = old_result.split("。")
 
+        new_result = [i + "。" for i in new_result]
+        old_result = [i + "。" for i in old_result]
+
     return new_result, old_result
 
 

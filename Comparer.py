@@ -1075,5 +1075,5 @@ if __name__ == '__main__':
     my_report1 = open("Resources/2021Q4Committee.txt").readlines()
     my_report2 = open("Resources/2021Q3Committee.txt").readlines()
     agent = MonetaryCommitteeComparer()
-    my_result = agent.compare_report(my_report1, my_report2, to_html=True, output_path="Result/Committee2021Q4_2021Q3.html")
+    my_result = agent.compare_report(my_report1, my_report2, to_html=False, output_path="Result/Committee2021Q4_2021Q3.html")
     print(my_result)
